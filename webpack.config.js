@@ -1,23 +1,21 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const path = require("path");
+
+const base = require('./webpack.config.base.js')
 
 module.exports = {
-  mode: 'development',
-  entry: './src/index.js',
-  output: {
-    // filename: 'main.js'
-    filename: 'index.[contenthash].js',
+  ...base,
+  devtool: "inline-source-map",
+  devServer: {
+    contentBase: "./dist"
   },
-  plugins: [new HtmlWebpackPlugin({
-    title: '阿丹',
-    template: 'src/assets/index.html'
-  })],
   module: {
     rules: [
       {
         test: /\.css$/i,
-        use: ["style-loader", "css-loader"],
-      },
-    ],
-  },
+        use: ["style-loader", "css-loader"]
+      }
+    ]
+  }
 };
